@@ -14,7 +14,8 @@
 		EA18C75929C5486000121064 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA18C75829C5486000121064 /* Assets.xcassets */; };
 		EA18C75C29C5486000121064 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA18C75A29C5486000121064 /* LaunchScreen.storyboard */; };
 		EA18C76429C6200300121064 /* ResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA18C76329C6200300121064 /* ResultVC.swift */; };
-		EA18C76629C62E4800121064 /* QuestionAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA18C76529C62E4800121064 /* QuestionAnswer.swift */; };
+		EA18C76629C62E4800121064 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA18C76529C62E4800121064 /* Question.swift */; };
+		EA18C76829C8115F00121064 /* QuizTabelViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA18C76729C8115F00121064 /* QuizTabelViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +28,8 @@
 		EA18C75B29C5486000121064 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EA18C75D29C5486000121064 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA18C76329C6200300121064 /* ResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultVC.swift; sourceTree = "<group>"; };
-		EA18C76529C62E4800121064 /* QuestionAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionAnswer.swift; sourceTree = "<group>"; };
+		EA18C76529C62E4800121064 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		EA18C76729C8115F00121064 /* QuizTabelViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizTabelViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +46,7 @@
 		EA18C74329C5485C00121064 = {
 			isa = PBXGroup;
 			children = (
+				EA18C76729C8115F00121064 /* QuizTabelViewCell.swift */,
 				EA18C74E29C5485C00121064 /* xiaowei */,
 				EA18C74D29C5485C00121064 /* Products */,
 			);
@@ -63,7 +66,7 @@
 				EA18C74F29C5485C00121064 /* AppDelegate.swift */,
 				EA18C75129C5485C00121064 /* SceneDelegate.swift */,
 				EA18C75329C5485C00121064 /* MainPageVC.swift */,
-				EA18C76529C62E4800121064 /* QuestionAnswer.swift */,
+				EA18C76529C62E4800121064 /* Question.swift */,
 				EA18C75529C5485C00121064 /* Main.storyboard */,
 				EA18C76329C6200300121064 /* ResultVC.swift */,
 				EA18C75829C5486000121064 /* Assets.xcassets */,
@@ -144,8 +147,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA18C76629C62E4800121064 /* QuestionAnswer.swift in Sources */,
+				EA18C76629C62E4800121064 /* Question.swift in Sources */,
 				EA18C75429C5485C00121064 /* MainPageVC.swift in Sources */,
+				EA18C76829C8115F00121064 /* QuizTabelViewCell.swift in Sources */,
 				EA18C76429C6200300121064 /* ResultVC.swift in Sources */,
 				EA18C75029C5485C00121064 /* AppDelegate.swift in Sources */,
 				EA18C75229C5485C00121064 /* SceneDelegate.swift in Sources */,

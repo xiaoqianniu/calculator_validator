@@ -22,7 +22,7 @@ class MainPageVC: UIViewController {
     @IBOutlet weak var generateButton: UIButton!
     let buttonData: [(String, Int)] = [("1", 1), ("2", 2), ("3", 3), ("4", 4), ("5", 5), ("6", 6), ("7", 7), ("8", 8), ("9", 9), ("0", 0)]
     
-    var currentQuestion : QuestionAnswer?
+    var currentQuestion : Question?
     override func viewDidLoad() {
         super.viewDidLoad()
         for (index,button) in numberButtons.enumerated(){
@@ -89,46 +89,73 @@ class MainPageVC: UIViewController {
         print(answerTextField.text!)
     }
     
-    
+    var quizQuestionsList = [(Question, String, Bool)]()
     @IBAction func generateButtonTapped(_ sender: Any) {
         answerTextField.text = ""
         quizCheckTitle.text = ""
-        let question = QuestionAnswer.generateQuestion()
-        switch question {
-        case .success(let questionAnswer):
-            currentQuestion = questionAnswer
-            operationLabel.text = "\(questionAnswer.operand1) \(questionAnswer.operatorSymbol) \(questionAnswer.operand2)"
-            validateButton.isEnabled = true
-        case .failure(_):
-            validateButton.isEnabled = false
+        currentQuestion = Question()
+        let questionText = currentQuestion?.generateQuestionText()
+        operationLabel.text = questionText
+        if !currentQuestion!.isValid() {
+            answerTextField.text = "Divided by Zero"
         }
-        
-        
     }
    
-    @IBAction func validateButtonTapped(_ sender: UIButton) {
-        guard let userAnswer = Double(answerTextField.text ?? "") else {
-            print("Invalid input")
-                    return
-                }
+    @IBAction func scoreButtonTapped(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+          let resultVC = storyboard.instantiateViewController(withIdentifier: "ResultVC") as! ResultVC
+          resultVC.quizAnswers = quizQuestionsList
+          present(resultVC, animated: true, completion: nil)
         
-        guard let currentQuestion = currentQuestion else {
-            print("current QUESTION MISSING")
+    }
+    
+    @IBAction func validateButtonTapped(_ sender: UIButton) {
+        
+        
+        guard let userAnswer = Double(answerTextField.text ?? "")else {
+            print("Invalid input")
             return
         }
-        switch currentQuestion.validateAnswer(userAnswer) {
-        case .success(let isCorrect):
-            if isCorrect {
-                quizCheckTitle.text = "Correct!"
-                quizCheckTitle.textColor = UIColor.green
+            
+            if let currentQuestion = currentQuestion {
+                
+                if (currentQuestion.isValid()){
+                                
+                    switch currentQuestion.validateAnswer(userAnswer) {
+                                        case .success(let isCorrect):
+                                            if isCorrect {
+                                                quizCheckTitle.text = "Correct!"
+                                                quizCheckTitle.textColor = UIColor.green
+                                            } else {
+                                                quizCheckTitle.text = "Incorrect"
+                                                quizCheckTitle.textColor = UIColor.red
+                                            }
+                                        case .failure(let error):
+                                            quizCheckTitle.text = "Error: " + error.localizedDescription
+                                            quizCheckTitle.textColor = UIColor.red
+                                        }
+                    quizQuestionsList.append((currentQuestion,
+                                              answerTextField.text ?? "",
+                                              currentQuestion.isCorrectAnswer(userAnswer)))
+                }
             } else {
-                quizCheckTitle.text = "Incorrect"
-                quizCheckTitle.textColor = UIColor.red
+                print("current QUESTION MISSING")
+                return
             }
-        case .failure(let error):
-            quizCheckTitle.text = "Error: " + error.localizedDescription
-            quizCheckTitle.textColor = UIColor.red
+        
+    }
+        
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let resultVC = segue.destination as? ResultVC {
+            resultVC.quizAnswers = quizQuestionsList
         }
+    }
+    
+    func showAlert(withTitle title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 
 }
