@@ -136,7 +136,9 @@ class MainPageVC: UIViewController {
         switch unwindSegue.identifier{
         case "fromResult":
             let resultVC = unwindSegue.source as! ResultVC
-            quizCheckTitle.text = "Congrats!  " + resultVC.registerTextField.text! + ", Your " + resultVC.scoreLabel.text!
+            quizCheckTitle.text = "Hi!  " + resultVC.registerTextField.text! + ", Your " + resultVC.scoreLabel.text!
+            operationLabel.text = ""
+            answerTextField.text = ""
         default:
             quizCheckTitle.text = "Math Quiz"
         }

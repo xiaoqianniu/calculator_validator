@@ -54,10 +54,10 @@ class ResultVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
          let totalQuestions = quizAnswers.count
          let correctAnswers = quizAnswers.filter({ $0.isCorrect }).count
          if totalQuestions == 0{
-             scoreLabel.text = "Total score:    0"
+             scoreLabel.text = "  Total score:    0"
          }else{
              let score = (Double(correctAnswers)/Double(totalQuestions)) * 100
-             scoreLabel.text = String(format: "Total score: %.1f%%", score)
+             scoreLabel.text = String(format: "  Total score: %.1f%%", score)
          }
      }
 }
