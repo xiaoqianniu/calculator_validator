@@ -20,9 +20,10 @@ class MainPageVC: UIViewController {
     @IBOutlet weak var dotButton: UIButton!
     @IBOutlet weak var validateButton: UIButton!
     @IBOutlet weak var generateButton: UIButton!
-    let buttonData: [(String, Int)] = [("1", 1), ("2", 2), ("3", 3), ("4", 4), ("5", 5), ("6", 6), ("7", 7), ("8", 8), ("9", 9), ("0", 0)]
     
+    let buttonData: [(String, Int)] = [("1", 1), ("2", 2), ("3", 3), ("4", 4), ("5", 5), ("6", 6), ("7", 7), ("8", 8), ("9", 9), ("0", 0)]
     var currentQuestion : Question?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         for (index,button) in numberButtons.enumerated(){
@@ -33,8 +34,6 @@ class MainPageVC: UIViewController {
     }
     
     @IBAction func answerEditingValidated(_ sender: UITextField) {
-        
-        
     }
     
     @IBAction func negativeButtonTapped(_ sender: UIButton) {
@@ -42,18 +41,13 @@ class MainPageVC: UIViewController {
             if(answer.contains(".")){
                 if let number = Double(answer) {
                     answerTextField.text = String(-number)
-                }
-                else
-                {
+                }else{
                     answerTextField.text = "Invaid answer"
                 }
-            }
-            else{
+            }else{
                 if let number = Int(answer) {
                     answerTextField.text = String(-number)
-                }
-                else
-                {
+                }else{
                     answerTextField.text = "Invaid answer"
                 }
             }
@@ -71,14 +65,12 @@ class MainPageVC: UIViewController {
                 answerTextField.text = (answerTextField.text ?? "") + decimalSeparator
             }
         }
-        
     }
     
     @IBAction func clearButtonTapped(_ sender: UIButton) {
         answerTextField.text = ""
         quizCheckTitle.text = ""
         operationLabel.text = ""
-        
     }
     
     @IBAction func numberButtonsTapped(_ sender: UIButton) {
@@ -106,20 +98,16 @@ class MainPageVC: UIViewController {
         let resultVC = storyboard.instantiateViewController(withIdentifier: "ResultVC") as! ResultVC
         resultVC.quizAnswers = quizQuestionsList
         present(resultVC, animated: true, completion: nil)
-        
     }
     
     @IBAction func validateButtonTapped(_ sender: UIButton) {
-        
         guard let userAnswer = Double(answerTextField.text ?? "")else {
             print("Invalid input")
             return
         }
         
         if let currentQuestion = currentQuestion {
-            
             if (currentQuestion.isValid()){
-                
                 var validQuestion = currentQuestion
                 switch validQuestion.validateAnswer(userAnswer) {
                 case .success(let isCorrect):
@@ -142,7 +130,6 @@ class MainPageVC: UIViewController {
             print("current QUESTION MISSING")
             return
         }
-        
     }
     
     @IBAction func unwindToMain(_ unwindSegue: UIStoryboardSegue){
@@ -166,6 +153,5 @@ class MainPageVC: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
-    
 }
 

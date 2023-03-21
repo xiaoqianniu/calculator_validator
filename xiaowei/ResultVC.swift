@@ -9,8 +9,6 @@ import UIKit
 
 class ResultVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-  
-    
     @IBOutlet weak var resultsTableView: UITableView!
     
     @IBOutlet weak var registerTextField: UITextField!
@@ -21,13 +19,11 @@ class ResultVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print(quizAnswers)
         resultsTableView.dataSource = self
         resultsTableView.delegate = self
         displayTotalScore()
+        
     }
-    
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
          return quizAnswers.count+1
@@ -37,7 +33,11 @@ class ResultVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
        
          if indexPath.row == 0{
              let cell = tableView.dequeueReusableCell(withIdentifier: "titleCell", for: indexPath) as! TitleTableViewCell
-             cell.resultsTableView = tableView
+             cell.quizAnswers = quizAnswers
+             cell.update = { [weak self] sortedArray in
+                 self?.quizAnswers = sortedArray
+                 tableView.reloadData()
+             }
              return cell
              
          }else{
@@ -60,6 +60,5 @@ class ResultVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
              scoreLabel.text = String(format: "Total score: %.1f%%", score)
          }
      }
-
-
 }
+

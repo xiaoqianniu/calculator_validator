@@ -80,8 +80,6 @@ struct Question: Equatable {
         return questionText
     }
 
-
-
      func calculateAnswer(operand1: Double, operand2: Double, operatorSymbol: String) -> Double {
         
          switch operatorSymbol {
@@ -121,7 +119,7 @@ struct Question: Equatable {
           return answer == correctAnswer
       }
     static func ==(lhs: Question, rhs: Question) -> Bool {
-          return lhs.text == rhs.text && lhs.isCorrect == rhs.isCorrect
+           return lhs.questionText == rhs.questionText && lhs.isCorrect == rhs.isCorrect
       }
 }
 
