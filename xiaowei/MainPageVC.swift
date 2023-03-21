@@ -8,7 +8,7 @@
 import UIKit
 
 class MainPageVC: UIViewController {
-
+    
     @IBOutlet weak var quizCheckTitle: UILabel!
     @IBOutlet weak var answerTextField: UITextField!
     @IBOutlet weak var operationLabel: UILabel!
@@ -33,8 +33,8 @@ class MainPageVC: UIViewController {
     }
     
     @IBAction func answerEditingValidated(_ sender: UITextField) {
-  
-  
+        
+        
     }
     
     @IBAction func negativeButtonTapped(_ sender: UIButton) {
@@ -60,7 +60,7 @@ class MainPageVC: UIViewController {
         }
         print(answerTextField.text!)
     }
-  
+    
     @IBAction func dotButtonTapped(_ sender: Any) {
         if let answer = answerTextField.text {
             if(answer.isEmpty){
@@ -78,7 +78,7 @@ class MainPageVC: UIViewController {
         answerTextField.text = ""
         quizCheckTitle.text = ""
         operationLabel.text = ""
-
+        
     }
     
     @IBAction func numberButtonsTapped(_ sender: UIButton) {
@@ -100,51 +100,60 @@ class MainPageVC: UIViewController {
             answerTextField.text = "Divided by Zero"
         }
     }
-   
+    
     @IBAction func scoreButtonTapped(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-          let resultVC = storyboard.instantiateViewController(withIdentifier: "ResultVC") as! ResultVC
-          resultVC.quizAnswers = quizQuestionsList
-          present(resultVC, animated: true, completion: nil)
+        let resultVC = storyboard.instantiateViewController(withIdentifier: "ResultVC") as! ResultVC
+        resultVC.quizAnswers = quizQuestionsList
+        present(resultVC, animated: true, completion: nil)
         
     }
     
     @IBAction func validateButtonTapped(_ sender: UIButton) {
         
-        
         guard let userAnswer = Double(answerTextField.text ?? "")else {
             print("Invalid input")
             return
         }
+        
+        if let currentQuestion = currentQuestion {
             
-            if let currentQuestion = currentQuestion {
+            if (currentQuestion.isValid()){
                 
-                if (currentQuestion.isValid()){
-                                
-                    switch currentQuestion.validateAnswer(userAnswer) {
-                                        case .success(let isCorrect):
-                                            if isCorrect {
-                                                quizCheckTitle.text = "Correct!"
-                                                quizCheckTitle.textColor = UIColor.green
-                                            } else {
-                                                quizCheckTitle.text = "Incorrect"
-                                                quizCheckTitle.textColor = UIColor.red
-                                            }
-                                        case .failure(let error):
-                                            quizCheckTitle.text = "Error: " + error.localizedDescription
-                                            quizCheckTitle.textColor = UIColor.red
-                                        }
-                    quizQuestionsList.append((currentQuestion,
-                                              answerTextField.text ?? "",
-                                              currentQuestion.isCorrectAnswer(userAnswer)))
+                var validQuestion = currentQuestion
+                switch validQuestion.validateAnswer(userAnswer) {
+                case .success(let isCorrect):
+                    if isCorrect {
+                        quizCheckTitle.text = "Correct!"
+                        quizCheckTitle.textColor = UIColor.green
+                    } else {
+                        quizCheckTitle.text = "Incorrect"
+                        quizCheckTitle.textColor = UIColor.red
+                    }
+                case .failure(let error):
+                    quizCheckTitle.text = "Error: " + error.localizedDescription
+                    quizCheckTitle.textColor = UIColor.red
                 }
-            } else {
-                print("current QUESTION MISSING")
-                return
+                quizQuestionsList.append((currentQuestion,
+                                          answerTextField.text ?? "",
+                                          currentQuestion.isCorrectAnswer(userAnswer)))
             }
+        } else {
+            print("current QUESTION MISSING")
+            return
+        }
         
     }
-        
+    
+    @IBAction func unwindToMain(_ unwindSegue: UIStoryboardSegue){
+        switch unwindSegue.identifier{
+        case "fromResult":
+            let resultVC = unwindSegue.source as! ResultVC
+            quizCheckTitle.text = "Congrats!  " + resultVC.registerTextField.text! + ", Your " + resultVC.scoreLabel.text!
+        default:
+            quizCheckTitle.text = "Math Quiz"
+        }
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let resultVC = segue.destination as? ResultVC {
@@ -157,6 +166,6 @@ class MainPageVC: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
-
+    
 }
 

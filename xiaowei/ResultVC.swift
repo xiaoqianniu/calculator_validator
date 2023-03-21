@@ -25,29 +25,40 @@ class ResultVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         print(quizAnswers)
         resultsTableView.dataSource = self
         resultsTableView.delegate = self
-//        quizAnswers = quizAnswers.map { (question: $0.question, answer: $0.answer, isCorrect: false) }
+        displayTotalScore()
     }
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         return quizAnswers.count
+         return quizAnswers.count+1
      }
-     
+
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-         let cell = tableView.dequeueReusableCell(withIdentifier: "QuizListCell", for: indexPath) as! QuizTabelViewCell
-         let quizAnswer = quizAnswers[indexPath.row]
-         cell.questionLabel.text = quizAnswer.question.getQuestionText()
-         cell.answerLabel.text = quizAnswer.answer
-         cell.isCorrectLabel.text = quizAnswer.isCorrect ? "Correct" : "Incorrect"
-         return cell
+       
+         if indexPath.row == 0{
+             let cell = tableView.dequeueReusableCell(withIdentifier: "titleCell", for: indexPath) as! TitleTableViewCell
+             cell.resultsTableView = tableView
+             return cell
+             
+         }else{
+             let cell = tableView.dequeueReusableCell(withIdentifier: "QuizListCell", for: indexPath) as! QuizTabelViewCell
+             let quizAnswer = quizAnswers[indexPath.row-1]
+             cell.questionLabel.text = quizAnswer.question.getQuestionText()
+             cell.answerLabel.text = quizAnswer.answer
+             cell.isCorrectLabel.text = quizAnswer.isCorrect ? "Correct" : "Incorrect"
+             return cell
+         }
      }
-     
-     // Calculate and display total score
+ 
      func displayTotalScore() {
          let totalQuestions = quizAnswers.count
          let correctAnswers = quizAnswers.filter({ $0.isCorrect }).count
-         let score = correctAnswers / totalQuestions * 100
-         print("Total score: \(score)%")
+         if totalQuestions == 0{
+             scoreLabel.text = "Total score:    0"
+         }else{
+             let score = (Double(correctAnswers)/Double(totalQuestions)) * 100
+             scoreLabel.text = String(format: "Total score: %.1f%%", score)
+         }
      }
 
 

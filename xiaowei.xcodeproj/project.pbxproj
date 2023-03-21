@@ -16,6 +16,7 @@
 		EA18C76429C6200300121064 /* ResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA18C76329C6200300121064 /* ResultVC.swift */; };
 		EA18C76629C62E4800121064 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA18C76529C62E4800121064 /* Question.swift */; };
 		EA18C76829C8115F00121064 /* QuizTabelViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA18C76729C8115F00121064 /* QuizTabelViewCell.swift */; };
+		EA33BAA329C9296A0043A3FD /* TitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA33BAA229C9296A0043A3FD /* TitleTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		EA18C76329C6200300121064 /* ResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultVC.swift; sourceTree = "<group>"; };
 		EA18C76529C62E4800121064 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		EA18C76729C8115F00121064 /* QuizTabelViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizTabelViewCell.swift; sourceTree = "<group>"; };
+		EA33BAA229C9296A0043A3FD /* TitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				EA18C75329C5485C00121064 /* MainPageVC.swift */,
 				EA18C76529C62E4800121064 /* Question.swift */,
 				EA18C75529C5485C00121064 /* Main.storyboard */,
+				EA33BAA229C9296A0043A3FD /* TitleTableViewCell.swift */,
 				EA18C76329C6200300121064 /* ResultVC.swift */,
 				EA18C75829C5486000121064 /* Assets.xcassets */,
 				EA18C75A29C5486000121064 /* LaunchScreen.storyboard */,
@@ -147,6 +150,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA33BAA329C9296A0043A3FD /* TitleTableViewCell.swift in Sources */,
 				EA18C76629C62E4800121064 /* Question.swift in Sources */,
 				EA18C75429C5485C00121064 /* MainPageVC.swift in Sources */,
 				EA18C76829C8115F00121064 /* QuizTabelViewCell.swift in Sources */,

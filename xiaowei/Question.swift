@@ -6,13 +6,15 @@
 //
 
 import Foundation
-struct Question {
+struct Question: Equatable {
     var operand1: Double
     var operand2: Double
     var operatorSymbol: String
     var isValidQuestion: Bool
+    var isCorrect: Bool
     var questionText:String = ""
     var correctAnswer: Double
+    let text: String = ""
     
     init() {
         self.operand1 = 0
@@ -20,6 +22,7 @@ struct Question {
         self.operatorSymbol = ""
         self.correctAnswer = 0
         self.isValidQuestion = false
+        self.isCorrect = false;
     }
     
     func isValid() -> Bool{
@@ -94,30 +97,16 @@ struct Question {
              return 0
          }
      }
-    func validateAnswer(_ userAnswer: Double) -> Result<Bool,Error> {
+    
+    mutating func validateAnswer(_ userAnswer: Double) -> Result<Bool,Error> {
         if userAnswer.isNaN || userAnswer.isInfinite {
             return .failure(QuestionError.invalidInput)
         }
-//
-//        let operand1String = String(operand1)
-//        let operand2String = String(operand2)
-//
-//        if operand1String.contains("..") || operand2String.contains("..") {
-//            return .failure(QuestionError.multipleDecimalPoints)
-//        }
-//
-//        if operand1String.count > 1 && operand1String.first == "-" && operand1String.dropFirst().contains(where: { $0.isNumber }) {
-//            return .failure(QuestionError.negativeSignInMiddle)
-//        }
-//
-//        if operand2String.count > 1 && operand2String.first == "-" && operand2String.dropFirst().contains(where: { $0.isNumber }) {
-//            return .failure(QuestionError.negativeSignInMiddle)
-//        }
-//
 
         if(isValidQuestion == true)
         {
-            return .success(userAnswer == correctAnswer)
+            self.isCorrect = (userAnswer == correctAnswer)
+            return .success(self.isCorrect)
         }
         
         if operatorSymbol == "/" && operand2 == 0 {
@@ -128,9 +117,11 @@ struct Question {
         }
     }
 
-
-
     func isCorrectAnswer(_ answer: Double) -> Bool {
           return answer == correctAnswer
       }
+    static func ==(lhs: Question, rhs: Question) -> Bool {
+          return lhs.text == rhs.text && lhs.isCorrect == rhs.isCorrect
+      }
 }
+
